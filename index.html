@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Hologram Assistant</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    video {
+      max-height: 80vh;
+      border-radius: 20px;
+      box-shadow: 0 0 40px cyan;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <video autoplay loop muted playsinline>
+    <source src="https://cdn.pixabay.com/vimeo/779201775/hologram-150012.mp4?width=1280&hash=9be1762c3c12be4a622dc13c62ef72c27e8ce239" type="video/mp4">
+  </video>
+  <audio id="ai-voice" autoplay></audio>
+  <script>
+    const audioURL = "https://example.com/output.mp3";
+    const audio = document.getElementById("ai-voice");
+    audio.src = audioURL;
+  </script>
+</body>
+</html>
