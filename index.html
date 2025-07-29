@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Hologram Assistant</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
@@ -28,19 +28,31 @@
       background: cyan;
       box-shadow: 0 0 20px cyan;
       cursor: pointer;
+      z-index: 10;
     }
   </style>
 </head>
 <body>
 
-  <!-- แสดง Avatar 3D hologram -->
-  <model-viewer src="holo.glb" auto-rotate camera-controls autoplay></model-viewer>
+  <!-- แสดง 3D avatar -->
+  <model-viewer 
+    src="holo.glb" 
+    auto-rotate 
+    camera-controls 
+    disable-zoom 
+    interaction-prompt="none"
+    autoplay 
+    shadow-intensity="1"
+    exposure="1"
+    environment-image="neutral"
+    alt="Hologram AI">
+  </model-viewer>
 
   <!-- ปุ่มไมค์ -->
   <div id="mic"></div>
 
   <script>
-    // เมื่อคลิกที่ไมค์ → พูดข้อความจำลอง
+    // เมื่อคลิกไมค์ ให้พูดเสียงตอบกลับ
     document.getElementById("mic").addEventListener("click", () => {
       const msg = new SpeechSynthesisUtterance("สวัสดีครับ ผมคือผู้ช่วยอัจฉริยะของคุณ");
       msg.lang = "th-TH";
