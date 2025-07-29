@@ -2,30 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Hologram Assistant</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <title>AI Assistant 3D</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #000; }
+    canvas { display: block; }
+  </style>
 </head>
 <body>
-
-  <model-viewer
-    src="robot.glb"
-    alt="AI Assistant"
-    camera-controls
-    auto-rotate
-    disable-zoom
-    style="width: 100vw; height: 100vh; background-color: black;"
-  ></model-viewer>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
   <script>
-    const msg = new SpeechSynthesisUtterance("สวัสดี ฉันคือผู้ช่วย AI ของคุณ");
-    msg.lang = 'th-TH';
-    msg.pitch = 1.1;
-    msg.rate = 1;
-    msg.volume = 1;
-    window.onload = () => speechSynthesis.speak(msg);
-  </script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
+    const light = new THREE.HemisphereLight(0xffffff, 0x444444);
+    light.position.set(0, 200, 0);
+    scene.add(light);
+
+    const loader = new THREE.GLTFLoader();
+    loader.load('Business%20Man.glb', function(gltf) {
+      const model = gltf.scene;
+      model.scale.set(1, 1, 1);
+      model.position.set(0, -1.5, 0);
+      scene.add(model);
+    }, undefined, function(error) {
+      console.error(error);
+    });
+
+    camera.position.z = 3;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
 </body>
 </html>
