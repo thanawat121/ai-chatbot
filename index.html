@@ -2,63 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hologram Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Hologram Assistant</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background-color: black;
-      overflow: hidden;
-    }
-
-    model-viewer {
-      width: 100vw;
-      height: 100vh;
-      --poster-color: transparent;
-    }
-
-    #mic {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: cyan;
-      box-shadow: 0 0 20px cyan;
-      cursor: pointer;
-      z-index: 10;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- แสดง 3D avatar -->
-  <model-viewer 
-    src="holo.glb" 
-    auto-rotate 
-    camera-controls 
-    disable-zoom 
-    interaction-prompt="none"
-    autoplay 
-    shadow-intensity="1"
-    exposure="1"
-    environment-image="neutral"
-    alt="Hologram AI">
-  </model-viewer>
-
-  <!-- ปุ่มไมค์ -->
-  <div id="mic"></div>
+  <model-viewer
+    src="robot.glb"
+    alt="AI Assistant"
+    camera-controls
+    auto-rotate
+    disable-zoom
+    style="width: 100vw; height: 100vh; background-color: black;"
+  ></model-viewer>
 
   <script>
-    // เมื่อคลิกไมค์ ให้พูดเสียงตอบกลับ
-    document.getElementById("mic").addEventListener("click", () => {
-      const msg = new SpeechSynthesisUtterance("สวัสดีครับ ผมคือผู้ช่วยอัจฉริยะของคุณ");
-      msg.lang = "th-TH";
-      msg.rate = 1;
-      speechSynthesis.speak(msg);
-    });
+    const msg = new SpeechSynthesisUtterance("สวัสดี ฉันคือผู้ช่วย AI ของคุณ");
+    msg.lang = 'th-TH';
+    msg.pitch = 1.1;
+    msg.rate = 1;
+    msg.volume = 1;
+    window.onload = () => speechSynthesis.speak(msg);
   </script>
 
 </body>
