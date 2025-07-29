@@ -40,6 +40,12 @@
       renderer.render(scene, camera);
     }
     animate();
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+
+window.addEventListener('click', () => {
+  audio.play();
+});
+
   </script>
 </body>
 </html>
