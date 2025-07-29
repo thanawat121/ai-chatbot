@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Assistant 3D</title>
+  <meta charset="UTF-8">
+  <title>3D Robot</title>
   <style>
-    body { margin: 0; overflow: hidden; background: #000; }
+    body { margin: 0; overflow: hidden; }
     canvas { display: block; }
   </style>
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
-  <script>
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-    light.position.set(0, 200, 0);
-    scene.add(light);
+<script>
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
 
-    const loader = new THREE.GLTFLoader();
-    loader.load('Business%20Man.glb', function(gltf) {
-      const model = gltf.scene;
-      model.scale.set(1, 1, 1);
-      model.position.set(0, -1.5, 0);
-      scene.add(model);
-    }, undefined, function(error) {
-      console.error(error);
-    });
+  // แสง
+  const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+  scene.add(light);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(1, 2, 3);
+  scene.add(directionalLight);
 
-    camera.position.z = 3;
+  // โหลดโมเดล robot.glb
+  const loader = new THREE.GLTFLoader();
+  loader.load('robot.glb', function (gltf) {
+    const model = gltf.scene;
+    model.scale.set(1.5, 1.5, 1.5);
+    model.position.set(0, -1, 0);
+    scene.add(model);
+  }, undefined, function (error) {
+    console.error('GLB Load Error:', error);
+  });
 
-    function animate() {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    }
-    animate();
-    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+  camera.position.z = 3;
 
-window.addEventListener('click', () => {
-  audio.play();
-});
+  function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+  }
+  animate();
+</script>
 
-  </script>
 </body>
 </html>
