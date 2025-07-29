@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>AI Hologram Assistant</title>
   <style>
     body {
       margin: 0;
-      background: black;
+      background-color: black;
+      height: 100vh;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
     }
     video {
-      max-height: 80vh;
-      border-radius: 20px;
-      box-shadow: 0 0 40px cyan;
+      max-height: 70vh;
+      z-index: 1;
+      border-radius: 10px;
+    }
+    .mic-button {
+      margin-top: 30px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: black;
+      border: 4px solid cyan;
+      box-shadow: 0 0 30px cyan;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .mic-button:hover {
+      box-shadow: 0 0 50px #00ffff;
+    }
+    .mic-icon {
+      width: 30px;
+      height: 30px;
+      background: url('https://cdn-icons-png.flaticon.com/512/727/727245.png') no-repeat center;
+      background-size: contain;
     }
     audio {
       display: none;
@@ -25,14 +48,32 @@
   </style>
 </head>
 <body>
+
+  <!-- วิดีโอ Hologram -->
   <video autoplay loop muted playsinline>
-    <source src="https://cdn.pixabay.com/vimeo/779201775/hologram-150012.mp4?width=1280&hash=9be1762c3c12be4a622dc13c62ef72c27e8ce239" type="video/mp4">
+    <source src="https://cdn.pixabay.com/vimeo/779201775/hologram-150012.mp4?width=1280" type="video/mp4">
   </video>
+
+  <!-- ปุ่มไมค์ -->
+  <div class="mic-button" onclick="triggerVoice()">
+    <div class="mic-icon"></div>
+  </div>
+
+  <!-- เสียงจาก AI -->
   <audio id="ai-voice" autoplay></audio>
+
   <script>
-    const audioURL = "https://example.com/output.mp3";
-    const audio = document.getElementById("ai-voice");
-    audio.src = audioURL;
+    function triggerVoice() {
+      // ตัวอย่าง: fetch เสียงจาก n8n หรือ AI
+      fetch('https://your-n8n-server.com/get-latest-audio')  // เปลี่ยน URL
+        .then(res => res.text())
+        .then(url => {
+          const audio = document.getElementById('ai-voice');
+          audio.src = url;
+          audio.play();
+        })
+        .catch(err => console.error('Error fetching audio:', err));
+    }
   </script>
 </body>
 </html>
